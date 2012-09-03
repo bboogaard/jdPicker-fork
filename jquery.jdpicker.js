@@ -1,4 +1,11 @@
 /*
+https://github.com/bboogaard/jdPicker-fork
+
+Adds following tweaks to fork at: https://github.com/stormbreakerbg/jdPicker-fork:
+
+- added quotes to date value in 'date=...' attribute contains selector
+- added date format for Netherlands (dd-mm-YYYY)
+
 jdPicker 1.0
 Requires jQuery version: >= 1.2.6
 
@@ -104,6 +111,12 @@ jdPicker.prototype = {
 			this.date_decode = "new Date(matches[3], this.indexFor(this.month_names, matches[2]), matches[1]);"; 
 			this.date_encode = 'this.strpad(date.getDate()) + " " + this.month_names[date.getMonth()] + " " + date.getFullYear();'; 
 			this.date_encode_s = 'this.strpad(date.getDate()) + " " + this.month_names[date.getMonth()];'; 
+		break;
+	        case "dd-mm-YYYY":
+			this.reg = new RegExp(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+			this.date_decode = "new Date(matches[3], parseInt(matches[2]-1), matches[1]);";
+			this.date_encode = 'this.strpad(date.getDate()) + "-" + this.strpad(date.getMonth()+1) + "-" + date.getFullYear();';
+			this.date_encode_s = 'this.strpad(date.getDate()) + "-" + this.strpad(date.getMonth()+1)';
 		break;
 		case "YYYY/mm/dd": 
 		default: 
@@ -259,7 +272,7 @@ jdPicker.prototype = {
 			  }));
 		  }
 		  
-		  $("td[date=" + this.dateToString(new Date()) + "]", this.tbody).addClass("today");
+		  $("td[date=\"" + this.dateToString(new Date()) + "\"]", this.tbody).addClass("today");
 		  if(this.select_week == 1){
 			  $("tr", this.tbody).mouseover(function() { $(this).addClass("hover"); });
 			  $("tr", this.tbody).mouseout(function() { $(this).removeClass("hover"); });
@@ -270,7 +283,7 @@ jdPicker.prototype = {
 		};
 		
 		$('.selected', this.tbody).removeClass("selected");
-		$('td[date=' + this.selectedDateString + '], tr[date=' + this.selectedDateString + ']', this.tbody).addClass("selected");
+		$('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]', this.tbody).addClass("selected");
 	}else
 		this.show_error(this.error_out_of_range);
   },

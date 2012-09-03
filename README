@@ -1,3 +1,8 @@
+Adds following tweaks to fork at: https://github.com/stormbreakerbg/jdPicker-fork:
+
+- added quotes to date value in 'date=...' attribute contains selector
+- added date format for Netherlands (dd-mm-YYYY)
+
 Adds a few modifications and bugfixes to the original script at: http://jdpicker.paulds.fr/
 
 - Better positioning
